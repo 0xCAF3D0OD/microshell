@@ -7,10 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a35dd3cd-a45f-4771-a35c-0228d5904610" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/image/main.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/image/microshell.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/image/titre.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/find_command.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/microshell.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/microshell.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microshell.c" beforeDir="false" afterPath="$PROJECT_DIR$/microshell.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +59,8 @@
       <option name="presentableId" value="Default" />
       <updated>1673207393547</updated>
       <workItem from="1673207394775" duration="1060000" />
-      <workItem from="1673256090963" duration="1902000" />
+      <workItem from="1673256090963" duration="4327000" />
+      <workItem from="1673267373037" duration="881000" />
     </task>
     <servers />
   </component>

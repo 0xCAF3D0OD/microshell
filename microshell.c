@@ -11,9 +11,26 @@ typedef struct s_command {
 	int		fd[2];
 }	t_command;
 
-static int microshell(char **av, char **envp)
+static void find_command(char *arg, t_command *cmd)
 {
 	
+}
+
+static int microshell(char **av, char **envp)
+{
+	t_command *cmd;
+
+	while (*av)
+	{
+		cmd->isPipe = 0;
+		cmd->bin = *av;
+		cmd->args = av;
+		find_command(&args, &cmd);
+		init_pipe(&cmd);
+		if (cd_command(&cmd))
+			execute_command(&cmd, envp);
+
+	}
 	return (0);
 }
 
