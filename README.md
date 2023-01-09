@@ -13,7 +13,7 @@
 [<img src="image/microshell.png" width="300">](image/microshell.png)
 
 ---
-### find commande
+### find command
 
 
-[<img src="image/find_command.png" width="300">](image/find_command.png)
+[<img src="image/find_command.svg" width="300">](image/find_command.svg)
