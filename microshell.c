@@ -25,7 +25,7 @@ static void find_command(char ***arg, t_command *cmd)
 		i++;
 	if ((*arg)[i] == 0)
 	{
-		*arg = &((*arg)[index]);
+		*arg = &((*arg)[i]);
 		return ;
 	}
 	if (!strcmp((*arg)[i], "|"))
@@ -33,7 +33,7 @@ static void find_command(char ***arg, t_command *cmd)
 		cmd->isPipe = 1;
 	}
 	(*arg)[i] = 0;
-	*arg = &((*arg)[index + 1]);
+	*arg = &((*arg)[i + 1]);
 }
 
 static void init_pipe(t_command *cmd)
@@ -89,13 +89,13 @@ static void	execute_command(t_command *cmd, char **envp)
 
 static int microshell(char **args, char **envp)
 {
-	t_command *cmd;
+	t_command cmd;
 
-	while (*av)
+	while (*args)
 	{
-		cmd->isPipe = 0;
-		cmd->bin = *av;
-		cmd->args = av;
+		cmd.isPipe = 0;
+		cmd.bin = *args;
+		cmd.args = args;
 		find_command(&args, &cmd);
 		init_pipe(&cmd);
 		if (cd_command(&cmd))
@@ -112,4 +112,3 @@ int main(int ac, char **av, char **envp)
 	av++;
 	return (microshell(av, envp));
 }
-
