@@ -13,7 +13,25 @@
 [<img src="image/microshell.png" width="300">](image/microshell.png)
 
 ---
-### find command
+### parse command
 
 
-[<img src="image/find_command.svg" width="300">](image/find_command.svg)
+[<img src="image/parse_cmd.svg" width="300">](image/parse_cmd.svg)
+
+----
+### Init pipe
+
+
+[<img src="image/init_pipe.svg" width="250">](image/init_pipe.svg)
+
+----
+### Cd command
+
+
+[<img src="image/cd_command.svg" width="250">](image/cd_command.svg)
+
+----
+### Execution
+
+
+[<img src="image/execution.svg" width="500">](image/execution.svg)
