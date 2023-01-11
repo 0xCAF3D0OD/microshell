@@ -98,6 +98,42 @@
 
 </details>
 
+<details>	
+  <summary><b> 🔽 execve </b></summary>
+      <br />
+
+* **The `exec` family of functions replaces the current running process with a new process.**
+
+
+* **int `execve`(const char *pathname, char *const `argv`[ ], char *const `envp`[ ])**:
+  * executes the program pointed to by: 
+  * **pathname**: 
+    * **pathname** is a binary executable,
+    or a script starting with a line of the form "#! interpreter [arg]".
+  * `argv`:
+    * Is an **array of argument** strings passed to the new program
+  * `envp`: 
+    * Is an **array of strings**, conventionally of the form key=value, which are passed as environment to the new program
+
+</details>
+
+<details>	
+  <summary><b> 🔽 waitpid </b></summary>
+      <br />
+
+* **pid_t `waitpid` (child_pid, &status, options)**:
+  * Suspends the calling process until a `child process` ends or is stopped.
+  * `pid`:
+    * Specifies the child processes the caller wants to wait for termination of the specific child process.
+  * `status_ptr`:
+    * Points to a location where `waitpid`() can store a status value.
+    * This status value is zero if the child process explicitly returns **zero**.
+    * The status_ptr pointer may also be **NULL**.
+  * `options`:
+    * Specifies additional information for waitpid().
+
+</details>
+
 ---
 ### 0. Structure command
 
