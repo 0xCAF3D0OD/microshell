@@ -88,6 +88,16 @@
       <br />
 </details>
 
+<details>	
+  <summary><b> 🔽 dup2</b></summary>
+      <br />
+
+* **int `dup2`(int oldfd, int newfd):**
+  * The `dup`() system call **creates a copy of a file descriptor**.
+  * It uses the **lowest-numbered** unused descriptor for the **new** descriptor.
+
+</details>
+
 ---
 ### 0. Structure command
 
