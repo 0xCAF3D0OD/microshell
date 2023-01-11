@@ -19,6 +19,77 @@
     ````
 
 ---
+### reminder
+
+<details>	
+  <summary><b> 🔽 envp </b></summary>
+  <br />
+
+* **char `envp`**: (**env**ironment **p**ointer): 
+  * The `envp` parameter is a **pointer to an array of null-terminated strings** that 
+  represent the values set in the **user's environment variables**.
+  * `$NAME`, `USER=kdi-noce`, `SHELL=/bin/zsh`, etc... .
+
+
+</details>
+
+<details>	
+  <summary><b> 🔽 pipe</b></summary>
+  <br />
+
+* **int `pipe`(int pipe_fd[2])**:
+
+    * Parameters :
+
+      * `fd[0]`: `fd` **(file descriptor)** for the
+        read end of pipe.
+  
+      * `fd[1]`: `fd` si for the write end of pipe.
+      
+      * `Returns` : 0 on Success.
+  
+      * **-1** on `error`.
+
+    * Conceptually, a **pipe** is a **connection between two processes**.
+    * **Pipes** are useful for **communication between related processes**(inter-process communication).
+
+</details>
+
+<details>	
+  <summary><b> 🔽 chdir</b></summary>
+  <br />
+
+* **int `chdir`(const char *path)**:
+  * The `chdir` command is a system function (system call) which is used to **change the current working directory**
+    to the directory specified in path.
+  * Is **used** as an **alias** for the shell command **cd**.
+  * Parameter:
+    * The path is the Directory path which the user want to make the current working directory.
+  * `Return` Value: 
+    * Returns zero **(0)** on success. 
+    * **-1** is returned on an `error` and `errno` is set appropriately.
+
+</details>
+
+<details>	
+  <summary><b> 🔽 fork</b></summary>
+  <br />
+
+* **pid_t `fork`(void)**:
+  * `Fork` system call is used for creating a new process, called child process.
+  * `Child process` runs concurrently with the process that makes the `fork`() call (`parent process`).
+  * A `child process` uses the **same** `pc`(program counter), **same** `CPU` registers, **same open files** which 
+  use in the `parent process`.
+  * **Negative Value:**
+    * creation of a child process was unsuccessful.
+  * **Zero:**
+    * Returned to the newly created child process.
+  * **Positive value:**
+    * **Returned to parent or caller**. The value contains process ID of newly created child process.
+    
+</details>
+
+---
 ### 0. structure command
 
 ````C
