@@ -24,15 +24,17 @@
 <details>	
   <summary><b> 🔽 envp </b></summary>
 
+
 * **char `envp`**: (**env**ironment **p**ointer): 
   * The `envp` parameter is a **pointer to an array of null-terminated strings** that 
   represent the values set in the **user's environment variables**.
   * `$NAME`, `USER=kdi-noce`, `SHELL=/bin/zsh`, etc... .
-    <br />
+     <br />
 </details>
 
 <details>	
   <summary><b> 🔽 pipe</b></summary>
+
 
 * **int `pipe`(int pipe_fd[2])**:
 
@@ -55,6 +57,7 @@
 <details>	
   <summary><b> 🔽 chdir</b></summary>
 
+
 * **int `chdir`(const char *path)**:
   * The `chdir` command is a system function (system call) which is used to **change the current working directory**
     to the directory specified in path.
@@ -69,6 +72,7 @@
 
 <details>	
   <summary><b> 🔽 fork</b></summary>
+
 
 * **pid_t `fork`(void)**:
   * `Fork` system call is used for creating a new process, called child process.
