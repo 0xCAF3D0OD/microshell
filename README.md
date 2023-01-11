@@ -9,7 +9,7 @@
 5. **[Cd command](#cd_command)**
 6. **[Execution](#execution)**
 
-### introduction
+### Introduction
 
 * Write a program that will behave like executing a shell command.
 * You have to use the absolute path.
@@ -19,7 +19,7 @@
     ````
 
 ---
-### reminder
+### Theory reminder
 
 <details>	
   <summary><b> 🔽 envp </b></summary>
@@ -89,7 +89,7 @@
 </details>
 
 ---
-### 0. structure command
+### 0. Structure command
 
 ````C
 typedef struct s_command {
