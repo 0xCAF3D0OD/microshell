@@ -1,5 +1,4 @@
 #include <unistd.h>
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <sys/wait.h>
@@ -15,45 +14,6 @@ static void	print_error(char *error)
 {
 	while (*error)
 		write(2, error++, 1);
-}
-
-static void find_command(char ***arg, t_command *cmd)
-{
-	int i = 0;
-
-	while ((*arg)[i] != 0 && strcmp((*arg)[i], ";") && strcmp((*arg)[i], "|"))
-		i++;
-	if ((*arg)[i] == 0)
-	{
-		*arg = &((*arg)[i]);
-		return ;
-	}
-	if (!strcmp((*arg)[i], "|"))
-	{
-		cmd->isPipe = 1;
-	}
-	(*arg)[i] = 0;
-	*arg = &((*arg)[i + 1]);
-}
-
-static void init_pipe(t_command *cmd)
-{
-	if (!(cmd->isPipe))
-		return ;
-	if (pipe(cmd->fd) == -1)
-	{
-		print_error("microshell: error: there's no pipe\n");
-		exit(1);
-	}
-}
-
-static int cd_command(t_command *cmd)
-{
-	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || !(cmd->args[0]))
-		return (1);
-	if (chdir(cmd->args[1]) == -1)
-		print_error("microshell: error: cd\n");
-	return (0);
 }
 
 static void	execute_command(t_command *cmd, char **envp)
@@ -87,7 +47,46 @@ static void	execute_command(t_command *cmd, char **envp)
 	}
 }
 
-static int microshell(char **args, char **envp)
+static int cd_command(t_command *cmd)
+{
+	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || !(cmd->args[0]))
+		return (1);
+	if (chdir(cmd->args[1]) == -1)
+		print_error("microshell: error: cd\n");
+	return (0);
+}
+
+static void init_pipe(t_command *cmd)
+{
+	if (!(cmd->isPipe))
+		return ;
+	if (pipe(cmd->fd) == -1)
+	{
+		print_error("microshell: error: there's no pipe\n");
+		exit(1);
+	}
+}
+
+static void find_command(char ***arg, t_command *cmd)
+{
+	int i = 0;
+
+	while ((*arg)[i] != 0 && strcmp((*arg)[i], ";") && strcmp((*arg)[i], "|"))
+		i++;
+	if ((*arg)[i] == 0)
+	{
+		*arg = &((*arg)[i]);
+		return ;
+	}
+	if (!strcmp((*arg)[i], "|"))
+	{
+		cmd->isPipe = 1;
+	}
+	(*arg)[i] = 0;
+	*arg = &((*arg)[i + 1]);
+}
+
+static int	microshell(char **args, char **envp)
 {
 	t_command cmd;
 
