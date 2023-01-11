@@ -23,7 +23,7 @@
 
 <details>	
   <summary><b> 🔽 envp </b></summary>
-
+      <br />
 
 * **char `envp`**: (**env**ironment **p**ointer): 
   * The `envp` parameter is a **pointer to an array of null-terminated strings** that 
@@ -34,7 +34,7 @@
 
 <details>	
   <summary><b> 🔽 pipe</b></summary>
-
+      <br />
 
 * **int `pipe`(int pipe_fd[2])**:
 
@@ -56,7 +56,7 @@
 
 <details>	
   <summary><b> 🔽 chdir</b></summary>
-
+      <br />
 
 * **int `chdir`(const char *path)**:
   * The `chdir` command is a system function (system call) which is used to **change the current working directory**
@@ -72,7 +72,7 @@
 
 <details>	
   <summary><b> 🔽 fork</b></summary>
-
+      <br />
 
 * **pid_t `fork`(void)**:
   * `Fork` system call is used for creating a new process, called child process.
