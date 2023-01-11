@@ -146,7 +146,7 @@ static void init_pipe(t_command *cmd)
 ````C
 static int cd_command(t_command *cmd)
 {
-	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || !(cmd->args[0]))
+	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || !(cmd->args[2]))
 		return (1);
 	if (chdir(cmd->args[1]) == -1)
 		print_error("microshell: error: cd\n");
