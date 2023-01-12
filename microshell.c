@@ -1,7 +1,9 @@
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/wait.h>
+
+#include	<stdio.h>
+#include	<string.h>
+#include	<unistd.h>
+#include	<stdlib.h>
+#include	<sys/wait.h>
 
 typedef struct s_command {
 	char	*bin;
@@ -16,11 +18,12 @@ static void	print_error(char *error)
 		write(2, error++, 1);
 }
 
-static void	execute_command(t_command *cmd, char **envp)
+static int	execute_command(t_command *cmd, char **envp)
 {
-	int pid;
+	int	pid;
 
 	pid = fork();
+
 	if (pid == 0)
 	{
 		if (cmd->isPipe)
@@ -31,7 +34,7 @@ static void	execute_command(t_command *cmd, char **envp)
 		}
 		if (execve(cmd->bin, cmd->args, envp) == -1)
 		{
-			print_error("microshell: error: execve");
+			print_error("microshell: Error execve\n");
 			exit(1);
 		}
 	}
@@ -43,71 +46,76 @@ static void	execute_command(t_command *cmd, char **envp)
 			close(cmd->fd[0]);
 			close(cmd->fd[1]);
 		}
-		waitpid(pid, 0 ,0);
+		waitpid(pid, 0, 0);
 	}
+
+	return 0;
 }
 
-static int cd_command(t_command *cmd)
+static int	cd_command(t_command *cmd)
 {
-	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || !(cmd->args[2]))
-		return (1);
+	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || (cmd->args[2]))
+		return 1;
 	if (chdir(cmd->args[1]) == -1)
 		print_error("microshell: error: cd\n");
-	return (0);
+	return 0;
 }
 
-static void init_pipe(t_command *cmd)
+static void	init_pipe(t_command *cmd)
 {
 	if (!(cmd->isPipe))
 		return ;
 	if (pipe(cmd->fd) == -1)
 	{
-		print_error("microshell: error: there's no pipe\n");
+		print_error("microshell: error: pipe\n");
 		exit(1);
 	}
 }
 
-static void find_command(char ***arg, t_command *cmd)
+static void	find_command(char ***arguments, t_command *cmd)
 {
-	int i = 0;
+	int	index;
 
-	while ((*arg)[i] != 0 && strcmp((*arg)[i], ";") && strcmp((*arg)[i], "|"))
-		i++;
-	if ((*arg)[i] == 0)
+	index = 0;
+	while ((*arguments)[index]
+		&& strcmp((*arguments)[index], ";")
+		&& strcmp((*arguments)[index], "|"))
+		++index;
+	if ((*arguments)[index] == 0)
 	{
-		*arg = &((*arg)[i]);
+		*arguments = &((*arguments)[index]);
 		return ;
 	}
-	if (!strcmp((*arg)[i], "|"))
-	{
+	if (!strcmp((*arguments)[index], "|"))
 		cmd->isPipe = 1;
-	}
-	(*arg)[i] = 0;
-	*arg = &((*arg)[i + 1]);
+	(*arguments)[index] = 0;
+	*arguments = &((*arguments)[index + 1]);
 }
 
-static int	microshell(char **args, char **envp)
+static int	microshell(char **arguments, char **envp)
 {
-	t_command cmd;
+	t_command	cmd;
 
-	while (*args)
+	while (*arguments)
 	{
 		cmd.isPipe = 0;
-		cmd.bin = *args;
-		cmd.args = args;
-		find_command(&args, &cmd);
+		cmd.bin = *arguments;
+		cmd.args = arguments;
+		find_command(&arguments, &cmd);
 		init_pipe(&cmd);
 		if (cd_command(&cmd))
 			execute_command(&cmd, envp);
-
 	}
-	return (0);
+
+	return 0;
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	if (ac == 1)
-		return (0);
-	av++;
-	return (microshell(av, envp));
+	if (argc == 1)
+		return 0;
+
+	++argv;
+
+	return microshell(argv, envp);
 }
