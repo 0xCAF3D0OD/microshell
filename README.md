@@ -140,7 +140,7 @@
 ````C
 typedef struct s_command {
 	char	*bin;
-	char	**args;
+	char	**arguments;
 	int		isPipe;
 	int		fd[2];
 }	t_command;
@@ -173,16 +173,16 @@ int	main(int argc, char **argv, char **envp)
 ### 2. Microshell function
 
 ````C
-static int	microshell(char **args, char **envp)
+static int	microshell(char **arguments, char **envp)
 {
 	t_command cmd;
 
-	while (*args)
+	while (*arguments)
 	{
 		cmd.isPipe = 0;
-		cmd.bin = *args;
-		cmd.args = args;
-		find_command(&args, &cmd);
+		cmd.bin = *arguments;
+		cmd.arguments = arguments;
+		find_command(&arguments, &cmd);
 		init_pipe(&cmd);
 		if (cd_command(&cmd))
 			execute_command(&cmd, envp);
@@ -204,23 +204,24 @@ static int	microshell(char **args, char **envp)
 ### 3. Parse command
 
 ````C
-static void find_command(char ***arg, t_command *cmd)
+static void	find_command(char ***arguments, t_command *cmd)
 {
-	int i = 0;
+	int	index;
 
-	while ((*arg)[i] != 0 && strcmp((*arg)[i], ";") && strcmp((*arg)[i], "|"))
-		i++;
-	if ((*arg)[i] == 0)
+	index = 0;
+	while ((*arguments)[index]
+		&& strcmp((*arguments)[index], ";")
+		&& strcmp((*arguments)[index], "|"))
+		++index;
+	if ((*arguments)[index] == 0)
 	{
-		*arg = &((*arg)[i]);
+		*arguments = &((*arguments)[index]);
 		return ;
 	}
-	if (!strcmp((*arg)[i], "|"))
-	{
+	if (!strcmp((*arguments)[index], "|"))
 		cmd->isPipe = 1;
-	}
-	(*arg)[i] = 0;
-	*arg = &((*arg)[i + 1]);
+	(*arguments)[index] = 0;
+	*arguments = &((*arguments)[index + 1]);
 }
 ````
 <a name="Parse_command"></a>
@@ -262,9 +263,9 @@ static void init_pipe(t_command *cmd)
 ````C
 static int cd_command(t_command *cmd)
 {
-	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || !(cmd->args[2]))
+	if (strcmp(cmd->bin, "cd") || !(cmd->arguments[1]) || !(cmd->arguments[2]))
 		return (1);
-	if (chdir(cmd->args[1]) == -1)
+	if (chdir(cmd->arguments[1]) == -1)
 		print_error("microshell: error: cd\n");
 	return (0);
 }
@@ -296,7 +297,7 @@ static void	execute_command(t_command *cmd, char **envp)
 			close(cmd->fd[1]);
 			close(cmd->fd[0]);
 		}
-		if (execve(cmd->bin, cmd->args, envp) == -1)
+		if (execve(cmd->bin, cmd->arguments, envp) == -1)
 		{
 			print_error("microshell: error: execve");
 			exit(1);
