@@ -325,6 +325,6 @@ static void	execute_command(t_command *cmd, char **envp)
 
 </details>
 
-### Ressources
+### Resources
 
 * thanks to [t-h2o](https://github.com/t-h2o/microshell) for the explanation and his documentation.
