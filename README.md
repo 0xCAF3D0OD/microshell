@@ -284,11 +284,12 @@ static int	cd_command(t_command *cmd)
 ### 6. Execution
 
 ````C
-static void	execute_command(t_command *cmd, char **envp)
+static int	execute_command(t_command *cmd, char **envp)
 {
-	int pid;
+	int	pid;
 
 	pid = fork();
+
 	if (pid == 0)
 	{
 		if (cmd->isPipe)
@@ -299,7 +300,7 @@ static void	execute_command(t_command *cmd, char **envp)
 		}
 		if (execve(cmd->bin, cmd->args, envp) == -1)
 		{
-			print_error("microshell: error: execve");
+			print_error("microshell: Error execve\n");
 			exit(1);
 		}
 	}
@@ -311,8 +312,10 @@ static void	execute_command(t_command *cmd, char **envp)
 			close(cmd->fd[0]);
 			close(cmd->fd[1]);
 		}
-		waitpid(pid, 0 ,0);
+		waitpid(pid, 0, 0);
 	}
+
+	return 0;
 }
 ````
 <a name="cd_command"></a>
