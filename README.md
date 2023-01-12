@@ -121,7 +121,7 @@
   <summary><b> 🔽 waitpid </b></summary>
       <br />
 
-* **pid_t `waitpid`(pid_t pid, int *status, int options); **:
+* **pid_t `waitpid`(pid_t pid, int *status, int options)**:
   * Suspends the calling process until a `child process` ends or is stopped.
   * `pid`:
     * Specifies the child processes the caller wants to wait for termination of the specific child process.
