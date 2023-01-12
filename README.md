@@ -140,7 +140,7 @@
 ````C
 typedef struct s_command {
 	char	*bin;
-	char	**arguments;
+	char	**args;
 	int		isPipe;
 	int		fd[2];
 }	t_command;
@@ -181,7 +181,7 @@ static int	microshell(char **arguments, char **envp)
 	{
 		cmd.isPipe = 0;
 		cmd.bin = *arguments;
-		cmd.arguments = arguments;
+		cmd.args = arguments;
 		find_command(&arguments, &cmd);
 		init_pipe(&cmd);
 		if (cd_command(&cmd))
@@ -263,9 +263,9 @@ static void init_pipe(t_command *cmd)
 ````C
 static int cd_command(t_command *cmd)
 {
-	if (strcmp(cmd->bin, "cd") || !(cmd->arguments[1]) || !(cmd->arguments[2]))
+	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || !(cmd->args[2]))
 		return (1);
-	if (chdir(cmd->arguments[1]) == -1)
+	if (chdir(cmd->args[1]) == -1)
 		print_error("microshell: error: cd\n");
 	return (0);
 }
@@ -297,7 +297,7 @@ static void	execute_command(t_command *cmd, char **envp)
 			close(cmd->fd[1]);
 			close(cmd->fd[0]);
 		}
-		if (execve(cmd->bin, cmd->arguments, envp) == -1)
+		if (execve(cmd->bin, cmd->args, envp) == -1)
 		{
 			print_error("microshell: error: execve");
 			exit(1);
