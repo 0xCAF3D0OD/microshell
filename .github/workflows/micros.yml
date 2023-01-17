@@ -22,13 +22,26 @@ jobs:
           template: classic
           base: header, activity, community, repositories, metadata
           config_timezone: Europe/Zurich
-          
-      - name: Repository-introduction
+
+      - name: microshell
         uses: lowlighter/metrics@latest
         with:
-          filename: metrics.plugin.introduction.repository.svg
-          token: ${{ secrets.METRICS_TOKEN }}
           template: repository
-          repo: microshell
-          base: header
-          plugin_introduction: yes
+          filename: metrics.repository.svg
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+          user: 0xCAF3D0OD
+          repo: metrics
+          plugin_lines: yes
+          plugin_followup: yes
+          plugin_projects: yes
+          plugin_projects_repositories: 0xCAF3D0OD/microshell
+
+#       - name: Repository-introduction
+#         uses: lowlighter/metrics@latest
+#         with:
+#           filename: metrics.plugin.introduction.repository.svg
+#           token: ${{ secrets.METRICS_TOKEN }}
+#           template: repository
+#           repo: metrics
+#           base: header
+#           plugin_introduction: yes
