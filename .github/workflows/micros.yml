@@ -23,7 +23,7 @@ jobs:
           base: header, activity, community, repositories, metadata
           config_timezone: Europe/Zurich
           
-      - name: Repository introduction
+      - name: Repository-introduction
         uses: lowlighter/metrics@latest
         with:
           filename: metrics.plugin.introduction.repository.svg
