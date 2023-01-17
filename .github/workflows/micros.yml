@@ -28,7 +28,7 @@ jobs:
         with:
           template: repository
           filename: metrics.repository.svg
-          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+          token: ${{ secrets.METRICS_TOKEN }}
           user: 0xCAF3D0OD
           repo: metrics
           plugin_lines: yes
