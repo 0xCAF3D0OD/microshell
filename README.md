@@ -3,7 +3,7 @@
   <table>
     <tr>
       <td align="center">
-      <img src="/metrics.plugin.introduction.repository.svg" alt="Metrics" width="300">
+      <img src="/metrics.repository.svg" alt="Metrics" width="300">
     </tr>
   </table>
 
