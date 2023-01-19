@@ -216,14 +216,14 @@ static void	parse_cmd(char ***arguments, t_command *cmd)
 
 	while ((*arguments)[index] && strcmp((*arguments)[index], ";") && strcmp((*arguments)[index], "|"))
 		index++;
-	if ((*argndexuments)[index] == 0)
+	if ((*arguments)[index] == 0)
 	{
-		*argumenndexts = &((*arguments)[index]);
+		*arguments = &((*arguments)[index]);
 		return ;
 	}
-	if (!sndextrcmp((*arguments)[index], "|"))
+	if (!strcmp((*arguments)[index], "|"))
 		cmd->isPipe = 1;
-	(*argumenndexts)[index] = 0;
+	(*arguments)[index] = 0;
 	*arguments = &((*arguments)[index + 1]);
 }
 ````
