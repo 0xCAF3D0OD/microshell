@@ -210,23 +210,20 @@ static int	microshell(char **arguments, char **envp)
 ### 3. Parse command
 
 ````C
-static void	find_command(char ***arguments, t_command *cmd)
+static void	parse_cmd(char ***arguments, t_command *cmd)
 {
-	int	index;
+	int	index = 0;
 
-	index = 0;
-	while ((*arguments)[index]
-		&& strcmp((*arguments)[index], ";")
-		&& strcmp((*arguments)[index], "|"))
-		++index;
-	if ((*arguments)[index] == 0)
+	while ((*arguments)[index] && strcmp((*arguments)[index], ";") && strcmp((*arguments)[index], "|"))
+		index++;
+	if ((*argndexuments)[index] == 0)
 	{
-		*arguments = &((*arguments)[index]);
+		*argumenndexts = &((*arguments)[index]);
 		return ;
 	}
-	if (!strcmp((*arguments)[index], "|"))
+	if (!sndextrcmp((*arguments)[index], "|"))
 		cmd->isPipe = 1;
-	(*arguments)[index] = 0;
+	(*argumenndexts)[index] = 0;
 	*arguments = &((*arguments)[index + 1]);
 }
 ````
@@ -243,13 +240,13 @@ static void	find_command(char ***arguments, t_command *cmd)
 ### 4. Init pipe
 
 ````C
-static void init_pipe(t_command *cmd)
+static void	init_pipe(t_command *cmd)
 {
 	if (!(cmd->isPipe))
 		return ;
 	if (pipe(cmd->fd) == -1)
 	{
-		print_error("microshell: error: there's no pipe\n");
+		print_error("error: fatal\n");
 		exit(1);
 	}
 }
@@ -269,11 +266,20 @@ static void init_pipe(t_command *cmd)
 ````C
 static int	cd_command(t_command *cmd)
 {
-	if (strcmp(cmd->bin, "cd") || !(cmd->args[1]) || (cmd->args[2]))
-		return 1;
+	if (strcmp(cmd->bin, "cd"))
+		return (1);
+	if (!cmd->args[1] || cmd->args[2])
+	{
+		print_error("error: cd: bad arguments");
+		return (0);
+	}
 	if (chdir(cmd->args[1]) == -1)
-		print_error("microshell: error: cd\n");
-	return 0;
+	{
+		print_error("error: cd: cannot change directory to");
+		print_error(cmd->args[1]);
+		print_error("\n");
+	}
+	return (0);
 }
 ````
 <a name="cd_command"></a>
@@ -290,12 +296,11 @@ static int	cd_command(t_command *cmd)
 ### 6. Execution
 
 ````C
-static int	execute_command(t_command *cmd, char **envp)
+static void	execute_cmd(char **envp, t_command *cmd)
 {
-	int	pid;
+	int pid;
 
 	pid = fork();
-
 	if (pid == 0)
 	{
 		if (cmd->isPipe)
@@ -306,7 +311,9 @@ static int	execute_command(t_command *cmd, char **envp)
 		}
 		if (execve(cmd->bin, cmd->args, envp) == -1)
 		{
-			print_error("microshell: Error execve\n");
+			print_error("error: cannot execute ");
+			print_error(cmd->bin);
+			print_error("\n");
 			exit(1);
 		}
 	}
@@ -320,8 +327,6 @@ static int	execute_command(t_command *cmd, char **envp)
 		}
 		waitpid(pid, 0, 0);
 	}
-
-	return 0;
 }
 ````
 <a name="cd_command"></a>
