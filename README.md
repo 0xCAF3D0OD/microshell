@@ -296,7 +296,7 @@ static int	cd_command(t_command *cmd)
 ### 6. Execution
 
 ````C
-static void	execute_cmd(char **envp, t_command *cmd)
+static void	execute_command(char **envp, t_command *cmd)
 {
 	int pid;
 
