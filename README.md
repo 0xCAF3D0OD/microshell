@@ -188,7 +188,7 @@ static int	microshell(char **arguments, char **envp)
 		cmd.isPipe = 0;
 		cmd.bin = *arguments;
 		cmd.args = arguments;
-		find_command(&arguments, &cmd);
+		parse_command(&arguments, &cmd);
 		init_pipe(&cmd);
 		if (cd_command(&cmd))
 			execute_command(&cmd, envp);
@@ -210,7 +210,7 @@ static int	microshell(char **arguments, char **envp)
 ### 3. Parse command
 
 ````C
-static void	parse_cmd(char ***arguments, t_command *cmd)
+static void	parse_command(char ***arguments, t_command *cmd)
 {
 	int	index = 0;
 
